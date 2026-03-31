@@ -6,18 +6,18 @@
 <title>東京23区 ワンルーム条例リサーチツール</title>
 <style>
   :root {
-    --primary: #1a5276;
-    --primary-light: #2980b9;
-    --accent: #e67e22;
-    --bg: #f5f7fa;
+    --primary: #1b2838;
+    --primary-light: #e67e22;
+    --accent: #f39c12;
+    --bg: #f7f7f9;
     --card-bg: #fff;
-    --text: #2c3e50;
-    --text-light: #7f8c8d;
-    --border: #dfe6e9;
+    --text: #2c2c2c;
+    --text-light: #6b7280;
+    --border: #e5e7eb;
     --success: #27ae60;
     --warning: #f39c12;
     --danger: #e74c3c;
-    --tag-bg: #eaf2f8;
+    --tag-bg: #fef5e7;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,11 +30,14 @@
   }
 
   .header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: #1b2838;
     color: white;
-    padding: 24px 20px 16px;
+    padding: 28px 20px 20px;
     text-align: center;
+    border-bottom: 4px solid #e67e22;
   }
+  .header-logo { height: 40px; margin-bottom: 10px; }
+  .header-company { font-size: 0.75rem; opacity: 0.7; letter-spacing: 2px; margin-bottom: 8px; }
   .header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
   .header p { font-size: 0.85rem; opacity: 0.85; }
 
@@ -137,7 +140,7 @@
   }
 
   .ward-detail-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, #1b2838 0%, #2c3e50 100%);
     color: white;
     padding: 20px 24px;
   }
@@ -152,7 +155,7 @@
     font-weight: 600;
   }
   .reg-type.jorei { background: rgba(255,255,255,0.25); }
-  .reg-type.shidou { background: rgba(230,126,34,0.7); }
+  .reg-type.shidou { background: rgba(243,156,18,0.7); }
 
   .ward-detail-body { padding: 24px; }
 
@@ -284,7 +287,7 @@
     top: 0;
   }
   .compare-table tr:nth-child(even) { background: #f8f9fa; }
-  .compare-table tr:hover { background: #eaf2f8; }
+  .compare-table tr:hover { background: #fef5e7; }
   .compare-table .highlight { background: #fef9e7; }
   .compare-table a { color: var(--primary-light); text-decoration: none; }
   .compare-table a:hover { text-decoration: underline; }
@@ -301,6 +304,8 @@
 <body>
 
 <div class="header">
+  <img src="https://www.ikedayamaestate.com/wp-content/themes/ikedayama_wp_theme/img/shared/logo-white.svg" alt="池田山エステート" class="header-logo">
+  <div class="header-company">株式会社池田山エステート</div>
   <h1>東京23区 ワンルーム条例リサーチツール</h1>
   <p>ワンルームマンション条例の規制内容を素早く検索・比較</p>
 </div>
