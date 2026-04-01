@@ -136,12 +136,12 @@
     background: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    overflow: hidden;
   }
 
   .ward-detail-header {
     background: linear-gradient(135deg, #1b2838 0%, #2c3e50 100%);
     color: white;
+    border-radius: 12px 12px 0 0;
     padding: 20px 24px;
   }
   .ward-detail-header h2 { font-size: 1.3rem; margin-bottom: 2px; }
@@ -173,6 +173,8 @@
     border-radius: 10px;
     padding: 16px;
     transition: box-shadow 0.2s;
+    overflow: visible;
+    position: relative;
   }
   .info-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
 
@@ -180,7 +182,6 @@
     font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-light);
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 6px;
   }
@@ -201,6 +202,144 @@
   .info-card.full-width {
     grid-column: 1 / -1;
   }
+
+  /* トリガー判定セクション */
+  .trigger-section {
+    background: #fffbf0;
+    border: 2px solid #e67e22;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .trigger-section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e67e22;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .trigger-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .trigger-chip {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .trigger-chip .num { font-size: 1.2rem; color: #e67e22; display: block; }
+  .trigger-and {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #e67e22;
+    background: #fde8d0;
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  .trigger-or {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #3498db;
+    background: #e8f4fd;
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  .trigger-explain {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+  .trigger-explain strong { color: var(--text); }
+
+  /* 用途地域別テーブル */
+  .zone-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-top: 10px;
+  }
+  .zone-table th {
+    background: #f0f0f0;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+  .zone-table td {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+  }
+  .zone-table tr:nth-child(even) { background: #fafafa; }
+
+  /* 用語ヘルプ */
+  .help-tip {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: #e67e22;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    text-align: center;
+    line-height: 16px;
+    cursor: help;
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 4px;
+    position: relative;
+  }
+  .help-tip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 120%;
+    left: 0;
+    background: #1b2838;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    width: max-content;
+    max-width: 480px;
+    z-index: 100;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  @media (max-width: 640px) {
+    .help-tip:hover::after {
+      max-width: 260px;
+      left: auto;
+      right: 0;
+    }
+  }
+
+  /* 規制の強さバッジ */
+  .strength-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  .strength-badge.strong { background: #fde8e8; color: #c0392b; }
+  .strength-badge.medium { background: #fef5e7; color: #e67e22; }
+  .strength-badge.weak { background: #e8f8f5; color: #27ae60; }
 
   .source-section {
     margin-top: 20px;
@@ -355,6 +494,11 @@ const wardData = [
     minimum_room_size_note: "1住戸の専用面積は25㎡以上",
     trigger_threshold: "地階を含む階数4以上、かつワンルーム形式住戸10戸以上",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "階数", value: "4階以上（地階含む）" },
+      { label: "戸数", value: "ワンルーム10戸以上" }
+    ],
+    beginner_note: "指導要綱なので法的強制力は弱め。ただし行政指導には従うのが一般的。4階建て未満 or 9戸以下なら対象外。",
     family_unit_requirement: "総戸数20戸以上の場合、ファミリー向け住戸（40㎡以上）の専用面積合計が全住戸の専用面積合計の1/3以上",
     family_unit_size_sqm: 40,
     management_requirements: "管理人室設置義務あり。30戸未満：定期巡回、30〜50戸：1日4時間以上駐在、50戸以上：1日8時間以上駐在。年1回管理状況報告書提出。",
@@ -371,6 +515,11 @@ const wardData = [
     minimum_room_size_note: "定住型住宅以外の住戸は専用面積25㎡以上",
     trigger_threshold: "地区計画区域内で住戸数10戸以上の共同住宅",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "区域", value: "地区計画区域内" },
+      { label: "戸数", value: "10戸以上" }
+    ],
+    beginner_note: "中央区は地区計画による規制。地区計画区域外は対象外になる場合あり。定住型住宅（40㎡以上）の確保が求められる。",
     family_unit_requirement: "定住型住宅（40㎡以上）の床面積合計が住宅用途部分の床面積の1/3以上",
     family_unit_size_sqm: 40,
     management_requirements: "管理人室の設置義務あり",
@@ -387,6 +536,10 @@ const wardData = [
     minimum_room_size_note: "ワンルームマンション建築物：25㎡以上、寄宿舎等：15㎡以上",
     trigger_threshold: "住戸専用面積37㎡未満の住戸が7戸以上ある共同住宅",
     trigger_min_units: 7,
+    trigger_conditions: [
+      { label: "戸数", value: "37㎡未満の住戸が7戸以上" }
+    ],
+    beginner_note: "港区はトリガーが7戸と少なめ。また「ワンルーム」の定義が37㎡未満と広いので、一般的な1Kも対象になりやすい。要注意。",
     family_unit_requirement: "総戸数30戸以上の場合、家族向け住戸の設置義務あり",
     family_unit_size_sqm: null,
     management_requirements: "管理人室設置義務、緊急連絡先表示板設置",
@@ -403,6 +556,11 @@ const wardData = [
     minimum_room_size_note: "専用面積25㎡以上",
     trigger_threshold: "地階を除く階数3以上、かつワンルーム形式住戸10戸以上の共同住宅",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上（地階除く）" },
+      { label: "戸数", value: "ワンルーム10戸以上" }
+    ],
+    beginner_note: "2階建て以下、またはワンルーム9戸以下なら対象外。30㎡未満が「ワンルーム」なので、30㎡以上の1Kは戸数にカウントされない。",
     family_unit_requirement: "ファミリー向け住戸の設置義務あり（詳細は条例施行規則に規定）",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -419,6 +577,10 @@ const wardData = [
     minimum_room_size_note: "ワンルーム形式住戸10戸以上の場合、専用面積25㎡以上",
     trigger_threshold: "ワンルーム形式住戸10戸以上",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "戸数", value: "ワンルーム（40㎡未満）10戸以上" }
+    ],
+    beginner_note: "階数の条件がなく、戸数だけで判定。40㎡未満が「ワンルーム」と広めの定義。9戸以下なら対象外。",
     family_unit_requirement: "住戸総数15戸超の場合、（住戸総数−15）×1/2以上を専用面積40㎡以上で設置",
     family_unit_size_sqm: 40,
     management_requirements: "管理人室の設置、管理体制の整備義務",
@@ -435,6 +597,10 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上（壁芯計算、バルコニー・PS等除く）",
     trigger_threshold: "住戸数10戸以上の共同住宅・寄宿舎等",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "戸数", value: "10戸以上" }
+    ],
+    beginner_note: "階数条件なし、10戸以上で対象。寄宿舎（シェアハウス等）も対象に含まれる点に注意。",
     family_unit_requirement: "ファミリー向け住戸の設置義務あり",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -451,6 +617,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上、天井高2.3m以上",
     trigger_threshold: "住戸数15戸以上、または階数3以上かつ住戸数10戸以上の共同住宅",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "パターン①", value: "15戸以上（階数問わず）" },
+      { label: "パターン②", value: "3階以上 かつ 10戸以上" }
+    ],
+    beginner_note: "2つの条件のどちらかに該当すれば対象。2階建て9戸以下なら対象外。天井高2.3m以上の要件もあるので注意。",
     family_unit_requirement: "住戸数25戸以上の場合、住戸数の30%以上を専用面積40㎡以上の住戸とすること",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -467,6 +638,12 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "地階を除く階数3以上、住戸数15戸以上、かつ過半数以上が40㎡未満",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上（地階除く）" },
+      { label: "戸数", value: "15戸以上" },
+      { label: "比率", value: "過半数が40㎡未満" }
+    ],
+    beginner_note: "3条件すべてを満たす場合のみ対象。15戸あっても半分以上が40㎡以上ならセーフ。令和6年改正済。",
     family_unit_requirement: "ファミリー住戸（40㎡以上）の設置義務あり",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -483,6 +660,16 @@ const wardData = [
     minimum_room_size_note: "第1種低層住居専用地域：25㎡以上、その他地域：20㎡以上",
     trigger_threshold: "居室のある階数3以上、かつワンルーム形式住戸15戸以上、かつ総戸数の1/3以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上" },
+      { label: "戸数", value: "ワンルーム15戸以上" },
+      { label: "比率", value: "総戸数の1/3以上がワンルーム" }
+    ],
+    beginner_note: "指導要綱なので法的強制力は弱め。ただし用途地域で最低面積が変わる（低層住専25㎡、その他20㎡）。3条件すべて満たす場合が対象。",
+    zone_conditions: [
+      { zone: "第1種低層住居専用地域", min_size: "25㎡以上", note: "厳しい基準" },
+      { zone: "その他の用途地域", min_size: "20㎡以上", note: "緩い基準" }
+    ],
     family_unit_requirement: "15〜19戸：1戸以上、20〜29戸：2戸以上、30戸以上：用途地域に応じた算定式でファミリータイプ住戸（40㎡以上）設置",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務、緊急時連絡先表示板の設置",
@@ -499,6 +686,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "階数3以上、かつ40㎡未満の住戸が10戸以上",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上" },
+      { label: "戸数", value: "40㎡未満が10戸以上" }
+    ],
+    beginner_note: "2階建て以下、または40㎡未満の住戸が9戸以下なら対象外。ファミリー住戸は「平均55㎡以上」と他区より厳しめ。",
     family_unit_requirement: "ワンルーム住戸（40㎡未満）が30戸超の場合、（ワンルーム住戸数−29）×1/2以上のファミリー住戸（平均55㎡以上）を設置",
     family_unit_size_sqm: 55,
     management_requirements: "10戸以上かつ3階以上の建物に管理人室・管理人の設置義務",
@@ -515,6 +707,14 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "計画戸数15戸以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "戸数", value: "15戸以上" }
+    ],
+    beginner_note: "14戸以下なら対象外。30戸以上でファミリー住戸義務が発生し、用途地域によって必要割合が変わる。管理人の駐在時間も戸数で段階的に変わる。",
+    zone_conditions: [
+      { zone: "第1種低層住居専用地域", min_size: "25㎡以上", note: "ファミリー住戸の割合が高い" },
+      { zone: "商業地域等", min_size: "25㎡以上", note: "ファミリー住戸の割合が低め" }
+    ],
     family_unit_requirement: "住戸数30戸以上の場合、用途地域に応じてファミリー型住戸（40㎡超）の設置義務",
     family_unit_size_sqm: 40,
     management_requirements: "29戸以下：週4日以上4時間以上巡回、30〜59戸：週5日以上1日4時間以上駐在、60戸以上：週5日以上1日8時間以上駐在",
@@ -531,6 +731,18 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上（寮・寄宿舎は18㎡以上）",
     trigger_threshold: "住居系・準工業地域：40㎡未満の住戸12戸以上。集合住宅等：40㎡以上の住戸20戸以上または延べ面積1,500㎡以上",
     trigger_min_units: 12,
+    trigger_conditions: [
+      { label: "ワンルーム型", value: "40㎡未満が12戸以上（住居系・準工業）" },
+      { label: "集合住宅型", value: "40㎡以上が20戸以上 or 延べ1,500㎡以上" }
+    ],
+    beginner_note: "用途地域によってトリガー戸数が異なる重要な区。住居系・準工業地域では12戸以上、商業地域では15戸以上。令和6年6月改正で厳格化。",
+    zone_conditions: [
+      { zone: "第1種低層住居専用地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
+      { zone: "第1種・第2種中高層住居専用地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
+      { zone: "第1種・第2種住居地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
+      { zone: "準工業地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
+      { zone: "近隣商業・商業地域", min_size: "25㎡以上", note: "トリガー：15戸以上" }
+    ],
     family_unit_requirement: "ファミリー向け住戸の設置義務あり",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -547,6 +759,15 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積28㎡以上（23区で最も厳しい基準）",
     trigger_threshold: "地階を除く階数3以上、かつワンルーム形式住戸が一定数以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上（地階除く）" },
+      { label: "戸数", value: "ワンルーム15戸以上" }
+    ],
+    beginner_note: "23区で最も厳しい。最低面積28㎡は他区の25㎡より大きく、企画段階で要注意。用途地域でファミリー住戸の必要割合も変わる。",
+    zone_conditions: [
+      { zone: "第1種低層住居専用地域", min_size: "28㎡以上", note: "ファミリー住戸：（WR数−29）×1/2以上" },
+      { zone: "その他の用途地域", min_size: "28㎡以上", note: "ファミリー住戸：（WR数−29）×1/3以上" }
+    ],
     family_unit_requirement: "第1種低層住居専用地域：（ワンルーム住戸数−29）×1/2以上、その他用途地域：（ワンルーム住戸数−29）×1/3以上のファミリー住戸設置",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -563,6 +784,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "特定集合住宅：階数3以上かつ住戸数12戸以上。小規模特定集合住宅：住戸数6〜12戸未満",
     trigger_min_units: 12,
+    trigger_conditions: [
+      { label: "特定集合住宅", value: "3階以上 かつ 12戸以上" },
+      { label: "小規模特定", value: "6〜11戸でも一部規制あり" }
+    ],
+    beginner_note: "6戸以上で小規模特定集合住宅として一部規制がかかる。5戸以下なら完全に対象外。12戸以上はフル規制。",
     family_unit_requirement: "ファミリー向け住戸の設置義務あり",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -579,6 +805,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "階数3以上かつ住戸数20戸以上、またはワンルーム住戸6戸以上",
     trigger_min_units: 6,
+    trigger_conditions: [
+      { label: "パターン①", value: "3階以上 かつ 20戸以上" },
+      { label: "パターン②", value: "ワンルーム6戸以上" }
+    ],
+    beginner_note: "指導要綱だが、ワンルーム6戸以上で対象になるので注意。小規模でも引っかかりやすい。5戸以下なら対象外。",
     family_unit_requirement: "住戸数20戸超の場合、超える分の1/2以上をファミリー形式住戸（40㎡以上）とする",
     family_unit_size_sqm: 40,
     management_requirements: "管理人室の設置義務（努力義務含む）",
@@ -595,6 +826,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積20㎡以上（23区で最も緩い基準）",
     trigger_threshold: "地階を除く階数3以上、かつ住戸数15戸以上の共同住宅",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上（地階除く）" },
+      { label: "戸数", value: "15戸以上" }
+    ],
+    beginner_note: "最低面積20㎡と23区で最も緩い。ただし30㎡未満の住戸を9戸以上建てると1戸50万円の「ワンルームマンション税」がかかる！コスト計算に要注意。",
     family_unit_requirement: "住戸数30戸以上の場合、ファミリー住戸設置義務",
     family_unit_size_sqm: null,
     management_requirements: "管理人の設置義務あり。高齢者配慮住戸を総住戸数の1/10以上設置",
@@ -613,6 +849,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "地階を除く階数3以上、かつ15戸以上の共同住宅",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上（地階除く）" },
+      { label: "戸数", value: "15戸以上" }
+    ],
+    beginner_note: "14戸以下または2階建て以下なら対象外。ファミリー住戸は55㎡以上と他区（40㎡）より広めの基準。",
     family_unit_requirement: "ワンルーム形式住戸30戸以上の場合、（総戸数−30）×1/2以上のファミリー住戸（55㎡以上）を設置",
     family_unit_size_sqm: 55,
     management_requirements: "管理人の設置義務あり",
@@ -629,6 +870,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "15戸以上の共同住宅・寄宿舎・長屋、または延べ面積1,000㎡以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "パターン①", value: "15戸以上" },
+      { label: "パターン②", value: "延べ面積1,000㎡以上" }
+    ],
+    beginner_note: "戸数だけでなく延べ面積でもトリガーされる。14戸でも延べ1,000㎡超えたら対象。ファミリー住戸は75㎡以上と非常に厳しい。",
     family_unit_requirement: "40㎡未満の住戸は29戸まで。30戸以上の場合、超過分と同数の75㎡以上の住戸を設置",
     family_unit_size_sqm: 50,
     management_requirements: "管理人の設置義務あり。緊急連絡体制の整備",
@@ -645,6 +891,11 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "階数3以上、かつ専用床面積35㎡未満の住戸が15戸以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上" },
+      { label: "戸数", value: "35㎡未満が15戸以上" }
+    ],
+    beginner_note: "ワンルーム定義が35㎡未満とやや独特。14戸以下または2階建て以下なら対象外。",
     family_unit_requirement: "ファミリー向け住戸の設置義務あり",
     family_unit_size_sqm: null,
     management_requirements: "管理人の設置義務あり",
@@ -661,6 +912,10 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "専用床面積40㎡未満の住戸が15戸以上の集合住宅",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "戸数", value: "40㎡未満が15戸以上" }
+    ],
+    beginner_note: "階数条件なし、戸数のみで判定。14戸以下なら対象外。ファミリー住戸は55㎡以上かつ2室以上と具体的な条件あり。",
     family_unit_requirement: "2室以上の居室がある55㎡以上のファミリー住戸の設置義務",
     family_unit_size_sqm: 55,
     management_requirements: "管理人の設置義務あり",
@@ -677,6 +932,12 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "地上3階以上、かつワンルーム形式住戸15戸以上、かつ総住戸数の1/3以上",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "階数", value: "3階以上" },
+      { label: "戸数", value: "ワンルーム15戸以上" },
+      { label: "比率", value: "総戸数の1/3以上がワンルーム" }
+    ],
+    beginner_note: "3条件すべてを満たす場合のみ対象。ファミリー住戸は75㎡以上と23区でもトップクラスに厳しい。",
     family_unit_requirement: "ワンルーム住戸30戸以上の場合、29戸を差し引いた残りについて75㎡以上の住戸を設置",
     family_unit_size_sqm: 75,
     management_requirements: "管理人の設置義務あり",
@@ -693,6 +954,10 @@ const wardData = [
     minimum_room_size_note: "住戸及び住室の床面積25㎡以上",
     trigger_threshold: "15戸以上の共同住宅・寄宿舎・長屋",
     trigger_min_units: 15,
+    trigger_conditions: [
+      { label: "戸数", value: "15戸以上" }
+    ],
+    beginner_note: "階数条件なし、15戸以上で対象。長屋や寄宿舎も対象。30戸以上だと75㎡以上のファミリー住戸も必要になり、段階的に厳しくなる。",
     family_unit_requirement: "15〜29戸：（住戸数−15）×50%以上を55㎡以上に設置。30戸以上：加えて20%以上を75㎡以上に設置",
     family_unit_size_sqm: 55,
     management_requirements: "管理人を定期巡回または駐在させること。不在時は機械警備等で対応",
@@ -709,6 +974,12 @@ const wardData = [
     minimum_room_size_note: "住戸専用面積25㎡以上",
     trigger_threshold: "3階以上かつ10戸以上の特定共同住宅、または40戸以上、または事業区域面積300㎡以上",
     trigger_min_units: 10,
+    trigger_conditions: [
+      { label: "パターン①", value: "3階以上 かつ 10戸以上" },
+      { label: "パターン②", value: "40戸以上（階数問わず）" },
+      { label: "パターン③", value: "事業区域面積300㎡以上" }
+    ],
+    beginner_note: "3つのうちどれか1つでも該当すれば対象。面積300㎡以上でも引っかかるので、戸数が少なくても要確認。ファミリー住戸の平均面積70㎡以上は23区でも厳しい部類。",
     family_unit_requirement: "15戸超の部分は当該戸数の平均を70㎡以上。一定基準を満たす場合は30戸以上の部分の平均面積を50㎡以上",
     family_unit_size_sqm: 70,
     management_requirements: "管理人の設置義務あり",
@@ -820,35 +1091,80 @@ function renderDetail(ward) {
     </a>`;
   }
 
+  // トリガー条件チップを生成
+  let triggerChipsHtml = '';
+  if (ward.trigger_conditions) {
+    triggerChipsHtml = ward.trigger_conditions.map((c, i) => {
+      const chip = `<div class="trigger-chip"><span class="num">${c.value}</span>${c.label}</div>`;
+      if (i < ward.trigger_conditions.length - 1) {
+        // 「かつ」か「または」を判定
+        const andLabels = ['階数', '戸数', '比率', '区域'];
+        const isAnd = andLabels.includes(c.label) && andLabels.includes(ward.trigger_conditions[i+1].label);
+        const connector = !isAnd
+          ? '<span class="trigger-or">または</span>'
+          : '<span class="trigger-and">かつ</span>';
+        return chip + connector;
+      }
+      return chip;
+    }).join('');
+  }
+
+  // 規制の強さバッジ
+  const strengthBadge = ward.regulation_type === '条例'
+    ? '<span class="strength-badge strong">法的拘束力あり</span>'
+    : '<span class="strength-badge weak">行政指導（強制力弱め）</span>';
+
+  // 用途地域別テーブル
+  let zoneHtml = '';
+  if (ward.zone_conditions && ward.zone_conditions.length > 0) {
+    const zoneRows = ward.zone_conditions.map(z => `
+      <tr><td>${z.zone}</td><td><strong>${z.min_size}</strong></td><td>${z.note}</td></tr>
+    `).join('');
+    zoneHtml = `
+      <div class="info-card full-width">
+        <div class="info-card-label">&#x26A0;&#xFE0F; 用途地域による違い <span class="help-tip" data-tip="同じ区内でも用途地域（住居系・商業系など）によって規制内容が異なります。物件の所在地の用途地域を必ず確認してください。">?</span></div>
+        <table class="zone-table">
+          <thead><tr><th>用途地域</th><th>最低面積</th><th>備考</th></tr></thead>
+          <tbody>${zoneRows}</tbody>
+        </table>
+      </div>`;
+  }
+
   container.innerHTML = `
     <div class="ward-detail">
       <div class="ward-detail-header">
         <h2>${ward.ward_name}（${ward.ward_name_en}）</h2>
         <div class="reg-name">${ward.regulation_name}</div>
-        <span class="reg-type ${typeClass}">${ward.regulation_type}</span>
+        <span class="reg-type ${typeClass}">${ward.regulation_type}${strengthBadge}</span>
       </div>
       <div class="ward-detail-body">
+        <div class="trigger-section">
+          <div class="trigger-section-title">&#x1F50D; この条例、うちの物件に関係ある？</div>
+          <div class="trigger-flow">${triggerChipsHtml}</div>
+          <div class="trigger-explain">${ward.beginner_note || ward.trigger_threshold}</div>
+        </div>
         <div class="info-grid">
           <div class="info-card">
-            <div class="info-card-label">最低専有面積</div>
-            <div class="info-card-value">${ward.minimum_room_size_sqm}㎡以上</div>
-            <div class="info-card-note">${ward.minimum_room_size_note}</div>
-          </div>
-          <div class="info-card">
-            <div class="info-card-label">ワンルーム定義</div>
-            <div class="info-card-value">${ward.oneroom_definition_sqm}㎡未満</div>
-            <div class="info-card-note">${ward.oneroom_definition_note}</div>
-          </div>
-          <div class="info-card">
-            <div class="info-card-label">適用条件（トリガー）</div>
+            <div class="info-card-label">適用条件（トリガー） <span class="help-tip" data-tip="この条件を満たすと条例・要綱の規制が適用されます。条件を満たさなければ規制対象外です。企画段階で最初にチェック！">?</span></div>
             <div class="info-card-value">${ward.trigger_min_units}戸以上</div>
             <div class="info-card-note">${ward.trigger_threshold}</div>
           </div>
           <div class="info-card">
-            <div class="info-card-label">ファミリー住戸基準</div>
+            <div class="info-card-label">ワンルーム定義 <span class="help-tip" data-tip="この面積未満の住戸が「ワンルーム」として規制対象にカウントされます。区によって25〜40㎡と大きく異なります。">?</span></div>
+            <div class="info-card-value">${ward.oneroom_definition_sqm}㎡未満</div>
+            <div class="info-card-note">${ward.oneroom_definition_note}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">最低専有面積 <span class="help-tip" data-tip="ワンルームの1部屋あたりの最低限の広さ。この面積未満の部屋は建てられません。バルコニー・PS・MB等は通常含みません。">?</span></div>
+            <div class="info-card-value">${ward.minimum_room_size_sqm}㎡以上</div>
+            <div class="info-card-note">${ward.minimum_room_size_note}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-label">ファミリー住戸基準 <span class="help-tip" data-tip="一定規模以上の場合、ファミリー向けの広い住戸を一定割合設置する義務。収益計画に大きく影響するので要確認。">?</span></div>
             <div class="info-card-value">${ward.family_unit_size_sqm ? ward.family_unit_size_sqm + '㎡以上' : '条例で規定'}</div>
             <div class="info-card-note">${ward.family_unit_requirement}</div>
           </div>
+          ${zoneHtml}
           <div class="info-card full-width">
             <div class="info-card-label">管理体制</div>
             <div class="info-card-note">${ward.management_requirements}</div>
