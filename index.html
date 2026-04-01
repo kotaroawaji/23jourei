@@ -92,6 +92,72 @@
   .search-result.error { color: var(--danger); }
   .search-result.success { color: var(--success); }
 
+  /* イントロセクション */
+  .intro-container {
+    max-width: 960px;
+    margin: 16px auto 0;
+    padding: 0 16px;
+  }
+  .intro-section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .intro-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .intro-header:hover { background: #fafafa; }
+  .intro-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .intro-arrow {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    transition: transform 0.3s;
+  }
+  .intro-arrow.open { transform: rotate(180deg); }
+  .intro-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .intro-body.open { max-height: 600px; }
+  .intro-content {
+    padding: 0 20px 20px;
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+  .intro-content p { margin-bottom: 10px; }
+  .intro-content strong { color: var(--primary); }
+  .intro-points {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .intro-point {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .intro-point-icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .intro-point-title { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+  .intro-point-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.5; }
+
   .main { max-width: 960px; margin: 16px auto; padding: 0 16px; }
 
   .ward-tabs-wrapper {
@@ -159,13 +225,94 @@
 
   .ward-detail-body { padding: 24px; }
 
+  /* セクション見出し */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-heading:not(:first-child) {
+    margin-top: 28px;
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  /* 適用条件セクション */
+  .condition-section {
+    background: #fffbf0;
+    border: 2px solid #e67e22;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .condition-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .condition-chip {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .condition-chip .num { font-size: 1.2rem; color: #e67e22; display: block; }
+  .condition-and {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #e67e22;
+    background: #fde8d0;
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  .condition-or {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #3498db;
+    background: #e8f4fd;
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  .condition-explain {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+    line-height: 1.7;
+  }
+  .condition-explain strong { color: var(--text); }
+
   .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-  }
-  @media (max-width: 640px) {
-    .info-grid { grid-template-columns: 1fr; }
   }
 
   .info-card {
@@ -196,75 +343,12 @@
   .info-card-note {
     font-size: 0.8rem;
     color: var(--text-light);
-    line-height: 1.5;
+    line-height: 1.7;
   }
 
   .info-card.full-width {
     grid-column: 1 / -1;
   }
-
-  /* トリガー判定セクション */
-  .trigger-section {
-    background: #fffbf0;
-    border: 2px solid #e67e22;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-  .trigger-section-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #e67e22;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .trigger-flow {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .trigger-chip {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary);
-    text-align: center;
-    line-height: 1.4;
-  }
-  .trigger-chip .num { font-size: 1.2rem; color: #e67e22; display: block; }
-  .trigger-and {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #e67e22;
-    background: #fde8d0;
-    border-radius: 6px;
-    padding: 4px 8px;
-  }
-  .trigger-or {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #3498db;
-    background: #e8f4fd;
-    border-radius: 6px;
-    padding: 4px 8px;
-  }
-  .trigger-explain {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    background: white;
-    border-radius: 8px;
-    padding: 10px 14px;
-    line-height: 1.6;
-    margin-top: 4px;
-  }
-  .trigger-explain strong { color: var(--text); }
 
   /* 用途地域別テーブル */
   .zone-table {
@@ -285,6 +369,87 @@
     border: 1px solid var(--border);
   }
   .zone-table tr:nth-child(even) { background: #fafafa; }
+
+  /* 制限セクション */
+  .restrictions-section {
+    background: #fafbfc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .restriction-item {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    background: white;
+    margin-bottom: 12px;
+    transition: box-shadow 0.2s;
+  }
+  .restriction-item:last-child { margin-bottom: 0; }
+  .restriction-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .restriction-item-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .restriction-item-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 4px;
+  }
+  .restriction-item-note {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ワンルームマンション税 */
+  .tax-callout {
+    background: #fef3e7;
+    border: 2px solid #e67e22;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .tax-callout-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #d35400;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tax-callout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .tax-callout-item {
+    background: white;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .tax-callout-item-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .tax-callout-item-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #d35400;
+  }
+  .tax-callout-note {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
 
   /* 用語ヘルプ */
   .help-tip {
@@ -328,13 +493,10 @@
     margin-left: 6px;
   }
   .strength-badge.strong { background: #fde8e8; color: #c0392b; }
-  .strength-badge.medium { background: #fef5e7; color: #e67e22; }
   .strength-badge.weak { background: #e8f8f5; color: #27ae60; }
 
   .source-section {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
+    margin-top: 8px;
   }
   .source-section h3 {
     font-size: 0.85rem;
@@ -417,7 +579,6 @@
   }
   .compare-table tr:nth-child(even) { background: #f8f9fa; }
   .compare-table tr:hover { background: #fef5e7; }
-  .compare-table .highlight { background: #fef9e7; }
   .compare-table a { color: var(--primary-light); text-decoration: none; }
   .compare-table a:hover { text-decoration: underline; }
 
@@ -428,6 +589,44 @@
   }
   .no-selection .icon { font-size: 2rem; margin-bottom: 12px; }
   .no-selection p { font-size: 0.95rem; }
+
+  /* レスポンシブ */
+  @media (max-width: 640px) {
+    .header h1 { font-size: 1.2rem; }
+    .header { padding: 20px 16px 16px; }
+    .search-box {
+      flex-direction: column;
+    }
+    .search-box button {
+      width: 100%;
+    }
+    .info-grid { grid-template-columns: 1fr; }
+    .condition-flow {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .condition-chip { text-align: center; }
+    .condition-and, .condition-or { text-align: center; }
+    .intro-points {
+      grid-template-columns: 1fr;
+    }
+    .tax-callout-grid {
+      grid-template-columns: 1fr;
+    }
+    .ward-detail-header { padding: 16px 18px; }
+    .ward-detail-header h2 { font-size: 1.1rem; }
+    .ward-detail-body { padding: 16px; }
+    .section-heading { gap: 8px; }
+    .section-title { font-size: 0.9rem; }
+  }
+
+  @media (max-width: 480px) {
+    .ward-tab {
+      padding: 5px 9px;
+      font-size: 0.75rem;
+    }
+    body { font-size: 0.9rem; }
+  }
 </style>
 </head>
 <body>
@@ -445,6 +644,38 @@
     <button onclick="searchByAddress()">検索</button>
   </div>
   <div id="searchResult" class="search-result"></div>
+</div>
+
+<div class="intro-container">
+  <div class="intro-section">
+    <div class="intro-header" onclick="toggleIntro()">
+      <h2>&#x1F4D6; ワンルーム条例とは？</h2>
+      <span class="intro-arrow" id="introArrow">&#x25BC;</span>
+    </div>
+    <div class="intro-body" id="introBody">
+      <div class="intro-content">
+        <p><strong>ワンルーム条例（ワンルームマンション規制）</strong>とは、東京23区がそれぞれ独自に定めている、小規模住戸（ワンルーム）が多い集合住宅の建築・管理に関する規制です。正式には「条例」や「指導要綱」として定められています。</p>
+        <p>単身者向けの狭い住戸ばかりのマンションが増えると、地域コミュニティの希薄化やゴミ・騒音問題が起きやすくなるため、<strong>一定規模以上のワンルームマンションを建築する際に、ファミリー向け住戸の設置や管理体制の整備を義務付ける</strong>ものです。</p>
+        <div class="intro-points">
+          <div class="intro-point">
+            <div class="intro-point-icon">&#x1F3E2;</div>
+            <div class="intro-point-title">対象者</div>
+            <div class="intro-point-text">集合住宅を新築・増築するデベロッパー・建築主</div>
+          </div>
+          <div class="intro-point">
+            <div class="intro-point-icon">&#x1F4CB;</div>
+            <div class="intro-point-title">区ごとに異なる</div>
+            <div class="intro-point-text">定義・適用条件・制限内容は23区それぞれ違います</div>
+          </div>
+          <div class="intro-point">
+            <div class="intro-point-icon">&#x26A0;&#xFE0F;</div>
+            <div class="intro-point-title">違反リスク</div>
+            <div class="intro-point-text">条例の場合は是正命令・公表、指導要綱でも行政指導の対象に</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="main">
@@ -529,7 +760,7 @@ const wardData = [
     trigger_conditions: [
       { label: "戸数", value: "37㎡未満の住戸が7戸以上" }
     ],
-    beginner_note: "港区はトリガーが7戸と少なめ。また「ワンルーム」の定義が37㎡未満と広いので、一般的な1Kも対象になりやすい。要注意。",
+    beginner_note: "港区は適用条件が7戸と少なめ。また「ワンルーム」の定義が37㎡未満と広いので、一般的な1Kも対象になりやすい。要注意。",
     family_unit_requirement: "総戸数30戸以上の場合、家族向け住戸の設置義務あり",
     family_unit_size_sqm: null,
     management_requirements: "管理人室設置義務、緊急連絡先表示板設置",
@@ -626,14 +857,14 @@ const wardData = [
     oneroom_definition_note: "専有面積40㎡未満の住戸",
     minimum_room_size_sqm: 25,
     minimum_room_size_note: "住戸専用面積25㎡以上",
-    trigger_threshold: "地階を除く階数3以上、住戸数15戸以上、かつ過半数以上が40㎡未満",
-    trigger_min_units: 15,
+    trigger_threshold: "地階を除く階数3以上、住戸数10戸以上、かつ過半数以上が40㎡未満",
+    trigger_min_units: 10,
     trigger_conditions: [
       { label: "階数", value: "3階以上（地階除く）" },
-      { label: "戸数", value: "15戸以上" },
+      { label: "戸数", value: "10戸以上" },
       { label: "比率", value: "過半数が40㎡未満" }
     ],
-    beginner_note: "3条件すべてを満たす場合のみ対象。15戸あっても半分以上が40㎡以上ならセーフ。令和6年改正済。",
+    beginner_note: "3条件すべてを満たす場合のみ対象。10戸あっても半分以上が40㎡以上ならセーフ。令和6年改正で15戸から10戸に引き下げ。",
     family_unit_requirement: "ファミリー住戸（40㎡以上）の設置義務あり",
     family_unit_size_sqm: 40,
     management_requirements: "管理人の設置義務あり",
@@ -725,13 +956,13 @@ const wardData = [
       { label: "ワンルーム型", value: "40㎡未満が12戸以上（住居系・準工業）" },
       { label: "集合住宅型", value: "40㎡以上が20戸以上 or 延べ1,500㎡以上" }
     ],
-    beginner_note: "用途地域によってトリガー戸数が異なる重要な区。住居系・準工業地域では12戸以上、商業地域では15戸以上。令和6年6月改正で厳格化。",
+    beginner_note: "用途地域によって適用条件の戸数が異なる重要な区。住居系・準工業地域では12戸以上、商業地域では15戸以上。令和6年6月改正で厳格化。",
     zone_conditions: [
-      { zone: "第1種低層住居専用地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
-      { zone: "第1種・第2種中高層住居専用地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
-      { zone: "第1種・第2種住居地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
-      { zone: "準工業地域", min_size: "25㎡以上", note: "トリガー：12戸以上" },
-      { zone: "近隣商業・商業地域", min_size: "25㎡以上", note: "トリガー：15戸以上" }
+      { zone: "第1種低層住居専用地域", min_size: "25㎡以上", note: "適用条件：12戸以上" },
+      { zone: "第1種・第2種中高層住居専用地域", min_size: "25㎡以上", note: "適用条件：12戸以上" },
+      { zone: "第1種・第2種住居地域", min_size: "25㎡以上", note: "適用条件：12戸以上" },
+      { zone: "準工業地域", min_size: "25㎡以上", note: "適用条件：12戸以上" },
+      { zone: "近隣商業・商業地域", min_size: "25㎡以上", note: "適用条件：15戸以上" }
     ],
     family_unit_requirement: "ファミリー向け住戸の設置義務あり",
     family_unit_size_sqm: 40,
@@ -821,10 +1052,16 @@ const wardData = [
       { label: "戸数", value: "15戸以上" }
     ],
     beginner_note: "最低面積20㎡と23区で最も緩い。ただし30㎡未満の住戸を9戸以上建てると1戸50万円の「ワンルームマンション税」がかかる！コスト計算に要注意。",
+    oneroom_tax: {
+      name: "狭小住戸集合住宅税（ワンルームマンション税）",
+      trigger: "30㎡未満の住戸を9戸以上建築する場合",
+      amount: "1戸あたり50万円",
+      note: "全国唯一のワンルームマンション課税制度。確認申請前に申告が必要。建築確認申請時に課税されるため、収支計画に必ず織り込むこと。"
+    },
     family_unit_requirement: "住戸数30戸以上の場合、ファミリー住戸設置義務",
     family_unit_size_sqm: null,
     management_requirements: "管理人の設置義務あり。高齢者配慮住戸を総住戸数の1/10以上設置",
-    other_requirements: "狭小住戸集合住宅税（ワンルームマンション税）：30㎡未満の住戸9戸以上建築時、1戸50万円課税",
+    other_requirements: "駐車場、駐輪場、廃棄物保管施設の設置義務",
     official_url: "https://www.city.toshima.lg.jp/314/machizukuri/sumai/kekaku/tateru/010173.html",
     additional_url: "https://www.city.toshima.lg.jp/100/tetsuzuki/ze/sonota/hotegaize/001777.html",
     additional_url_label: "狭小住戸集合住宅税について"
@@ -864,7 +1101,7 @@ const wardData = [
       { label: "パターン①", value: "15戸以上" },
       { label: "パターン②", value: "延べ面積1,000㎡以上" }
     ],
-    beginner_note: "戸数だけでなく延べ面積でもトリガーされる。14戸でも延べ1,000㎡超えたら対象。ファミリー住戸は75㎡以上と非常に厳しい。",
+    beginner_note: "戸数だけでなく延べ面積でも適用される。14戸でも延べ1,000㎡超えたら対象。ファミリー住戸は75㎡以上と非常に厳しい。",
     family_unit_requirement: "40㎡未満の住戸は29戸まで。30戸以上の場合、超過分と同数の75㎡以上の住戸を設置",
     family_unit_size_sqm: 50,
     management_requirements: "管理人の設置義務あり。緊急連絡体制の整備",
@@ -978,7 +1215,6 @@ const wardData = [
   }
 ];
 
-// Ward name aliases for address search
 const wardAliases = {
   "千代田": "千代田区", "中央": "中央区", "港": "港区", "新宿": "新宿区",
   "文京": "文京区", "台東": "台東区", "墨田": "墨田区", "江東": "江東区",
@@ -1023,11 +1259,9 @@ function searchByAddress() {
     return;
   }
 
-  // Try to find ward name in the input
   let foundWard = null;
   let foundIndex = -1;
 
-  // First try exact ward name match
   for (let i = 0; i < wardData.length; i++) {
     if (input.includes(wardData[i].ward_name)) {
       foundWard = wardData[i];
@@ -1036,9 +1270,7 @@ function searchByAddress() {
     }
   }
 
-  // Then try alias match (without 区)
   if (!foundWard) {
-    // Sort aliases by length descending to match longer names first (e.g., "江戸川" before "江東")
     const sortedAliases = Object.keys(wardAliases).sort((a, b) => b.length - a.length);
     for (const alias of sortedAliases) {
       if (input.includes(alias)) {
@@ -1063,16 +1295,23 @@ function searchByAddress() {
   }
 }
 
+function toggleIntro() {
+  const body = document.getElementById('introBody');
+  const arrow = document.getElementById('introArrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
 function renderDetail(ward) {
   const container = document.getElementById('wardDetail');
   const typeClass = ward.regulation_type === '条例' ? 'jorei' : 'shidou';
 
+  // リンクHTML
   let linksHtml = `
     <a href="${ward.official_url}" target="_blank" rel="noopener" class="source-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
       ${ward.ward_name} 公式ページ
     </a>`;
-
   if (ward.additional_url) {
     linksHtml += `
     <a href="${ward.additional_url}" target="_blank" rel="noopener" class="source-link">
@@ -1081,18 +1320,17 @@ function renderDetail(ward) {
     </a>`;
   }
 
-  // トリガー条件チップを生成
-  let triggerChipsHtml = '';
+  // 適用条件チップ
+  let conditionChipsHtml = '';
   if (ward.trigger_conditions) {
-    triggerChipsHtml = ward.trigger_conditions.map((c, i) => {
-      const chip = `<div class="trigger-chip"><span class="num">${c.value}</span>${c.label}</div>`;
+    conditionChipsHtml = ward.trigger_conditions.map((c, i) => {
+      const chip = `<div class="condition-chip"><span class="num">${c.value}</span>${c.label}</div>`;
       if (i < ward.trigger_conditions.length - 1) {
-        // 「かつ」か「または」を判定
         const andLabels = ['階数', '戸数', '比率', '区域'];
         const isAnd = andLabels.includes(c.label) && andLabels.includes(ward.trigger_conditions[i+1].label);
         const connector = !isAnd
-          ? '<span class="trigger-or">または</span>'
-          : '<span class="trigger-and">かつ</span>';
+          ? '<span class="condition-or">または</span>'
+          : '<span class="condition-and">かつ</span>';
         return chip + connector;
       }
       return chip;
@@ -1112,11 +1350,32 @@ function renderDetail(ward) {
     `).join('');
     zoneHtml = `
       <div class="info-card full-width">
-        <div class="info-card-label">&#x26A0;&#xFE0F; 用途地域による違い <span class="help-tip" data-tip="同じ区内でも用途地域（住居系・商業系など）によって規制内容が異なります。物件の所在地の用途地域を必ず確認してください。">?</span></div>
+        <div class="info-card-label">用途地域による違い <span class="help-tip" data-tip="同じ区内でも用途地域（住居系・商業系など）によって規制内容が異なります。物件の所在地の用途地域を必ず確認してください。">?</span></div>
         <table class="zone-table">
           <thead><tr><th>用途地域</th><th>最低面積</th><th>備考</th></tr></thead>
           <tbody>${zoneRows}</tbody>
         </table>
+      </div>`;
+  }
+
+  // ワンルームマンション税（豊島区のみ）
+  let taxHtml = '';
+  if (ward.oneroom_tax) {
+    const tax = ward.oneroom_tax;
+    taxHtml = `
+      <div class="tax-callout">
+        <div class="tax-callout-title">&#x1F4B0; ${tax.name}</div>
+        <div class="tax-callout-grid">
+          <div class="tax-callout-item">
+            <div class="tax-callout-item-label">課税条件</div>
+            <div class="tax-callout-item-value">${tax.trigger}</div>
+          </div>
+          <div class="tax-callout-item">
+            <div class="tax-callout-item-label">税額</div>
+            <div class="tax-callout-item-value">${tax.amount}</div>
+          </div>
+        </div>
+        <div class="tax-callout-note">${tax.note}</div>
       </div>`;
   }
 
@@ -1128,14 +1387,21 @@ function renderDetail(ward) {
         <span class="reg-type ${typeClass}">${ward.regulation_type}${strengthBadge}</span>
       </div>
       <div class="ward-detail-body">
-        <div class="trigger-section">
-          <div class="trigger-section-title">&#x1F50D; この条例、うちの物件に関係ある？</div>
-          <div class="trigger-flow">${triggerChipsHtml}</div>
-          <div class="trigger-explain">${ward.beginner_note || ward.trigger_threshold}</div>
+
+        <!-- セクション1: 適用される要件 -->
+        <div class="section-heading">
+          <span class="section-number">1</span>
+          <span class="section-title">ワンルーム条例が適用される要件</span>
         </div>
+
+        <div class="condition-section">
+          <div class="condition-flow">${conditionChipsHtml}</div>
+          <div class="condition-explain">${ward.beginner_note || ward.trigger_threshold}</div>
+        </div>
+
         <div class="info-grid">
           <div class="info-card">
-            <div class="info-card-label">適用条件（トリガー） <span class="help-tip" data-tip="この条件を満たすと条例・要綱の規制が適用されます。条件を満たさなければ規制対象外です。企画段階で最初にチェック！">?</span></div>
+            <div class="info-card-label">適用条件 <span class="help-tip" data-tip="この条件を満たすと条例・要綱の規制が適用されます。条件を満たさなければ規制対象外です。企画段階で最初にチェック！">?</span></div>
             <div class="info-card-value">${ward.trigger_min_units}戸以上</div>
             <div class="info-card-note">${ward.trigger_threshold}</div>
           </div>
@@ -1144,28 +1410,44 @@ function renderDetail(ward) {
             <div class="info-card-value">${ward.oneroom_definition_sqm}㎡未満</div>
             <div class="info-card-note">${ward.oneroom_definition_note}</div>
           </div>
-          <div class="info-card">
-            <div class="info-card-label">最低専有面積 <span class="help-tip" data-tip="ワンルームの1部屋あたりの最低限の広さ。この面積未満の部屋は建てられません。バルコニー・PS・MB等は通常含みません。">?</span></div>
-            <div class="info-card-value">${ward.minimum_room_size_sqm}㎡以上</div>
-            <div class="info-card-note">${ward.minimum_room_size_note}</div>
-          </div>
-          <div class="info-card">
-            <div class="info-card-label">ファミリー住戸基準 <span class="help-tip" data-tip="一定規模以上の場合、ファミリー向けの広い住戸を一定割合設置する義務。収益計画に大きく影響するので要確認。">?</span></div>
-            <div class="info-card-value">${ward.family_unit_size_sqm ? ward.family_unit_size_sqm + '㎡以上' : '条例で規定'}</div>
-            <div class="info-card-note">${ward.family_unit_requirement}</div>
-          </div>
           ${zoneHtml}
-          <div class="info-card full-width">
-            <div class="info-card-label">管理体制</div>
-            <div class="info-card-note">${ward.management_requirements}</div>
+        </div>
+
+        <!-- セクション2: 制限内容 -->
+        <div class="section-heading">
+          <span class="section-number">2</span>
+          <span class="section-title">適用された場合の制限内容</span>
+        </div>
+
+        <div class="restrictions-section">
+          ${taxHtml}
+          <div class="restriction-item">
+            <div class="restriction-item-label">最低専有面積 <span class="help-tip" data-tip="ワンルームの1部屋あたりの最低限の広さ。この面積未満の部屋は建てられません。バルコニー・PS・MB等は通常含みません。">?</span></div>
+            <div class="restriction-item-value">${ward.minimum_room_size_sqm}㎡以上</div>
+            <div class="restriction-item-note">${ward.minimum_room_size_note}</div>
           </div>
-          <div class="info-card full-width">
-            <div class="info-card-label">その他要件</div>
-            <div class="info-card-note">${ward.other_requirements}</div>
+          <div class="restriction-item">
+            <div class="restriction-item-label">ファミリー住戸の設置義務 <span class="help-tip" data-tip="一定規模以上の場合、ファミリー向けの広い住戸を一定割合設置する義務。収益計画に大きく影響するので要確認。">?</span></div>
+            <div class="restriction-item-value">${ward.family_unit_size_sqm ? ward.family_unit_size_sqm + '㎡以上' : '条例で規定'}</div>
+            <div class="restriction-item-note">${ward.family_unit_requirement}</div>
+          </div>
+          <div class="restriction-item">
+            <div class="restriction-item-label">管理体制の要件</div>
+            <div class="restriction-item-note">${ward.management_requirements}</div>
+          </div>
+          <div class="restriction-item">
+            <div class="restriction-item-label">その他設備要件</div>
+            <div class="restriction-item-note">${ward.other_requirements}</div>
           </div>
         </div>
+
+        <!-- セクション3: 情報ソース -->
+        <div class="section-heading">
+          <span class="section-number">3</span>
+          <span class="section-title">情報ソース（公式サイト）</span>
+        </div>
+
         <div class="source-section">
-          <h3>情報ソース（公式サイト）</h3>
           ${linksHtml}
         </div>
       </div>
@@ -1221,7 +1503,7 @@ function renderCompareTable() {
 
 init();
 
-// ヘルプチップ：タップ/ホバーでツールチップ表示（画面内に収まるよう自動調整）
+// ヘルプチップ：タップ/ホバーでツールチップ表示
 function showTooltip(tipEl) {
   hideTooltip();
   const text = tipEl.getAttribute('data-tip');
@@ -1230,17 +1512,13 @@ function showTooltip(tipEl) {
   tooltip.className = 'help-tooltip';
   tooltip.textContent = text;
   document.body.appendChild(tooltip);
-  // 位置計算
   const rect = tipEl.getBoundingClientRect();
   const ttWidth = tooltip.offsetWidth;
   const ttHeight = tooltip.offsetHeight;
   let left = rect.left + rect.width / 2 - ttWidth / 2;
   let top = rect.top - ttHeight - 8;
-  // 画面左端からはみ出る場合
   if (left < 8) left = 8;
-  // 画面右端からはみ出る場合
   if (left + ttWidth > window.innerWidth - 8) left = window.innerWidth - ttWidth - 8;
-  // 上にスペースがない場合は下に表示
   if (top < 8) top = rect.bottom + 8;
   tooltip.style.left = left + 'px';
   tooltip.style.top = top + 'px';
@@ -1250,7 +1528,6 @@ function hideTooltip() {
   document.querySelectorAll('.help-tooltip').forEach(t => t.remove());
   document.querySelectorAll('.help-tip.active').forEach(t => t.classList.remove('active'));
 }
-// タップ対応
 document.addEventListener('click', function(e) {
   const tip = e.target.closest('.help-tip');
   if (tip) {
@@ -1265,7 +1542,6 @@ document.addEventListener('click', function(e) {
     hideTooltip();
   }
 });
-// PC版ホバー対応
 document.addEventListener('mouseenter', function(e) {
   if (e.target.classList && e.target.classList.contains('help-tip')) showTooltip(e.target);
 }, true);
