@@ -303,7 +303,8 @@
     margin-left: 4px;
     position: relative;
   }
-  .help-tip:hover::after {
+  .help-tip:hover::after,
+  .help-tip.active::after {
     content: attr(data-tip);
     position: absolute;
     bottom: 120%;
@@ -321,7 +322,8 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
   @media (max-width: 640px) {
-    .help-tip:hover::after {
+    .help-tip:hover::after,
+    .help-tip.active::after {
       max-width: 260px;
       left: auto;
       right: 0;
@@ -1230,6 +1232,21 @@ function renderCompareTable() {
 }
 
 init();
+
+// スマホ対応：?ヘルプチップをタップで表示/非表示
+document.addEventListener('click', function(e) {
+  const tip = e.target.closest('.help-tip');
+  // 他の場所をタップしたら全て閉じる
+  document.querySelectorAll('.help-tip.active').forEach(t => {
+    if (t !== tip) t.classList.remove('active');
+  });
+  // ?をタップしたらトグル
+  if (tip) {
+    e.preventDefault();
+    e.stopPropagation();
+    tip.classList.toggle('active');
+  }
+});
 </script>
 </body>
 </html>
