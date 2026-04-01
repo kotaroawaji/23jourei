@@ -303,31 +303,19 @@
     margin-left: 4px;
     position: relative;
   }
-  .help-tip:hover::after,
-  .help-tip.active::after {
-    content: attr(data-tip);
-    position: absolute;
-    bottom: 120%;
-    left: 0;
+  .help-tooltip {
+    position: fixed;
     background: #1b2838;
     color: white;
     padding: 10px 14px;
     border-radius: 8px;
     font-size: 0.75rem;
     font-weight: 400;
-    width: max-content;
-    max-width: 480px;
-    z-index: 100;
+    max-width: min(480px, 90vw);
+    z-index: 9999;
     line-height: 1.5;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  @media (max-width: 640px) {
-    .help-tip:hover::after,
-    .help-tip.active::after {
-      max-width: 260px;
-      left: auto;
-      right: 0;
-    }
+    pointer-events: none;
   }
 
   /* 規制の強さバッジ */
@@ -1233,20 +1221,57 @@ function renderCompareTable() {
 
 init();
 
-// スマホ対応：?ヘルプチップをタップで表示/非表示
+// ヘルプチップ：タップ/ホバーでツールチップ表示（画面内に収まるよう自動調整）
+function showTooltip(tipEl) {
+  hideTooltip();
+  const text = tipEl.getAttribute('data-tip');
+  if (!text) return;
+  const tooltip = document.createElement('div');
+  tooltip.className = 'help-tooltip';
+  tooltip.textContent = text;
+  document.body.appendChild(tooltip);
+  // 位置計算
+  const rect = tipEl.getBoundingClientRect();
+  const ttWidth = tooltip.offsetWidth;
+  const ttHeight = tooltip.offsetHeight;
+  let left = rect.left + rect.width / 2 - ttWidth / 2;
+  let top = rect.top - ttHeight - 8;
+  // 画面左端からはみ出る場合
+  if (left < 8) left = 8;
+  // 画面右端からはみ出る場合
+  if (left + ttWidth > window.innerWidth - 8) left = window.innerWidth - ttWidth - 8;
+  // 上にスペースがない場合は下に表示
+  if (top < 8) top = rect.bottom + 8;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+  tipEl.classList.add('active');
+}
+function hideTooltip() {
+  document.querySelectorAll('.help-tooltip').forEach(t => t.remove());
+  document.querySelectorAll('.help-tip.active').forEach(t => t.classList.remove('active'));
+}
+// タップ対応
 document.addEventListener('click', function(e) {
   const tip = e.target.closest('.help-tip');
-  // 他の場所をタップしたら全て閉じる
-  document.querySelectorAll('.help-tip.active').forEach(t => {
-    if (t !== tip) t.classList.remove('active');
-  });
-  // ?をタップしたらトグル
   if (tip) {
     e.preventDefault();
     e.stopPropagation();
-    tip.classList.toggle('active');
+    if (tip.classList.contains('active')) {
+      hideTooltip();
+    } else {
+      showTooltip(tip);
+    }
+  } else {
+    hideTooltip();
   }
 });
+// PC版ホバー対応
+document.addEventListener('mouseenter', function(e) {
+  if (e.target.classList && e.target.classList.contains('help-tip')) showTooltip(e.target);
+}, true);
+document.addEventListener('mouseleave', function(e) {
+  if (e.target.classList && e.target.classList.contains('help-tip')) hideTooltip();
+}, true);
 </script>
 </body>
 </html>
