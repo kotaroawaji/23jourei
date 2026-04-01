@@ -1349,8 +1349,8 @@ function renderDetail(ward) {
       <tr><td>${z.zone}</td><td><strong>${z.min_size}</strong></td><td>${z.note}</td></tr>
     `).join('');
     zoneHtml = `
-      <div class="info-card full-width">
-        <div class="info-card-label">用途地域による違い <span class="help-tip" data-tip="同じ区内でも用途地域（住居系・商業系など）によって規制内容が異なります。物件の所在地の用途地域を必ず確認してください。">?</span></div>
+      <div class="restriction-item">
+        <div class="restriction-item-label">用途地域による違い <span class="help-tip" data-tip="同じ区内でも用途地域（住居系・商業系など）によって規制内容が異なります。物件の所在地の用途地域を必ず確認してください。">?</span></div>
         <table class="zone-table">
           <thead><tr><th>用途地域</th><th>最低面積</th><th>備考</th></tr></thead>
           <tbody>${zoneRows}</tbody>
@@ -1410,7 +1410,6 @@ function renderDetail(ward) {
             <div class="info-card-value">${ward.oneroom_definition_sqm}㎡未満</div>
             <div class="info-card-note">${ward.oneroom_definition_note}</div>
           </div>
-          ${zoneHtml}
         </div>
 
         <!-- セクション2: 制限内容 -->
@@ -1421,6 +1420,7 @@ function renderDetail(ward) {
 
         <div class="restrictions-section">
           ${taxHtml}
+          ${zoneHtml}
           <div class="restriction-item">
             <div class="restriction-item-label">最低専有面積 <span class="help-tip" data-tip="ワンルームの1部屋あたりの最低限の広さ。この面積未満の部屋は建てられません。バルコニー・PS・MB等は通常含みません。">?</span></div>
             <div class="restriction-item-value">${ward.minimum_room_size_sqm}㎡以上</div>
